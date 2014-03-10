@@ -77,6 +77,18 @@ CMDay.prototype.clone = function() {
 	'use strict';
 	return new CMDay(this.day);
 };
+CMDay.prototype.isClosed = function() {
+	'use strict';
+	return this._closed || false;
+};
+CMDay.prototype.setClosed = function(c) {
+	'use strict';
+	this._closed = c;
+};
+CMDay.prototype.toggleClosed = function() {
+	'use strict';
+	this._closed = !this._closed;
+};
 
 CMEvent.prototype.clone = function() {
 	'use strict';

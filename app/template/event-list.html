@@ -1,3 +1,17 @@
+<style>
+.open {
+	-webkit-transition: 100ms linear all;
+	transition: 100ms linear all;
+	-webkit-transform:rotate(90deg);
+	transform:rotate(90deg);
+}
+.closed {
+	-webkit-transition: 100ms linear all;
+	transition: 100ms linear all;
+	-webkit-transform:rotate(0deg);
+	transform:rotate(0deg);
+}
+</style>
 <ion-content has-header="true" overflow-scroll="false" scroll="true" padding="false" id="event-content">
 	<div class="bar item-input-inset">
 		<label class="item-input-wrapper">
@@ -10,7 +24,10 @@
 	</div>
 	<ion-list class="event-list">
 		<span bindonce ng-repeat="entry in entries track by entry.getId()" id="{{entry.getId()}}">
-			<ion-item ng-if="isDay(entry)" class="item-divider event-header">{{prettyDate(entry.day)}}</ion-item>
+			<ion-item ng-if="isDay(entry)" class="item-divider item-icon-right event-header">
+				{{prettyDate(entry.day)}}
+				<i class="icon icon-cm ion-arrow-down-b closed" ng-class="{closed: entry.isClosed(), open: !entry.isClosed()}" ng-click="entry.toggleClosed()"></i>
+			</ion-item>
 			<ion-item ng-if="!isDay(entry)" ng-class="'list-entry item-text-wrap ' + (entry.isEven()? 'even':'odd')">
 				<span class="item-note favorite" bo-show="(user.username &amp;&amp; user.username != entry.getUsername())">
 					<button id="{{entry.getId()}}-favorite" ng-click="onFavoriteChanged(entry)" class="button button-cm button-icon icon" ng-class="entry.isFavorite()? 'active ion-ios7-heart':'ion-ios7-heart-outline'"></button>
